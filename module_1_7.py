@@ -9,3 +9,4 @@ for i in range(len(students)):
  average_score = sum(grades_list) / len(grades_list)
  average_scores[student] = average_score
 print(average_scores)
+print("Hello world")
