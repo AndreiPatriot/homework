@@ -12,3 +12,4 @@ n = int(input('Введите целое число от 3 до 20: '))
 
 result = get_password(n)
 print('Пароль:', result)
+
