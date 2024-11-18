@@ -8,10 +8,10 @@ def send_email(message, recipient, sender = "univerity.help@gmail.com"):
     elif sender !="university.help@gmail.com":
         print(f"НЕСТАНДАРТНЫЙ ОТПРАВИТЕЛЬ! Письмо отправлено с адреса {sender} на адрес {recipient}.")
 send_email('message','universa.help@mail.com','@.com')
-send_email('message',"university.help@mail.com")
+send_email('message','university.help@mail.com')
 send_email('message','universi@.com')
 send_email('message','universi@.co')
 send_email('message','universi@.com')
-send_email('message','universa.help@mail.com','universa.help@mail.com')
-send_email('message','som66@mail.ru')
+send_email('message','universa.help@gmail.com','universa.help@gmail.com')
+send_email('message', 'som66@mail.ru')
 
