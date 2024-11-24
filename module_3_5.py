@@ -7,5 +7,5 @@ def get_multiplied_digits(number):
         return first
     else:
         return 1
-result=get_multiplied_digits(40203)
+result=get_multiplied_digits(420)
 print(result)
