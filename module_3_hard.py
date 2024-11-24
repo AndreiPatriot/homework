@@ -1,16 +1,3 @@
-def calculate_structure_sum(x):
-    resul = 0
-    for i in x:
-        if type(i) is int:
-            resul += i
-        elif type(i) is str:
-            resul += len(i)
-        elif type(i) is dict:
-            resul += calculate_structure_sum(i.values())
-            resul += calculate_structure_sum(i)
-        else:
-            resul += calculate_structure_sum(i)
-    return resul
 data_structure = [
   [1, 2, 3],
   {'a': 4, 'b': 5},
@@ -18,7 +5,21 @@ data_structure = [
   "Hello",
   ((), [{(2, 'Urban', ('Urban2', 35))}])
 ]
-
+def calculate_structure_sum(data_structure):
+    summa = 0
+    if isinstance(data_structure, dict):
+        for key, value in data_structure.items():
+            summa += calculate_structure_sum(key)
+            summa += calculate_structure_sum(value)
+    elif isinstance(data_structure, (list, tuple, set)):
+        for item in data_structure:
+            summa += calculate_structure_sum(item)
+    elif isinstance(data_structure, (int, float)):
+        summa += data_structure
+    elif isinstance(data_structure, str):
+        summa += len(data_structure)
+    return summa
 
 result = calculate_structure_sum(data_structure)
 print(result)
+
