@@ -11,8 +11,6 @@ def calculate_structure_sum(x):
         else:
             resul += calculate_structure_sum(i)
     return resul
-
-
 data_structure = [
   [1, 2, 3],
   {'a': 4, 'b': 5},
