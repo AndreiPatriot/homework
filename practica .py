@@ -15,10 +15,24 @@ class User:
 if __name__ == '__main__':
     database = Database()
     while True:
-        choice = input("Приветствую! Выберите действия: \n1 - Вход\n2 - Регистрвция\n")
-        user = User(input("Введите логин:"), password := input("Введите пароль:"), password2 := input("Повторите пароль:"))
-        if password != password2:
-            exit()
-        database.add_user(user.username, user.password)
+        choice = int(input("Приветствую! Выберите действия: \n1 - Вход\n2 - Регистрвция\n"))
+        if choice == 1:
+            login = input("Введите логин: ")
+            password = input("Введите пароль: ")
+            if login in database.data:
+                if password == database.data[login]:
+                    print(f'Вход выполнен, {login}')
+                    break
+                else:
+                    print('Неверный пароль')
+            else:
+                print('Пользователь не найден.')
+        if choice == 2:
+            user = User(input("Введите логин:"), password := input("Введите пароль:"),
+                        password2 := input("Повторите пароль:"))
+            if password != password2:
+                print("ароли не совпадают, попробуйте еще раз.")
+                continue
+            database.add_user(user.username, user.password)
         print(database.data)
-        exit()
+
