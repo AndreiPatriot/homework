@@ -1,12 +1,12 @@
 import random
 
-class Animal: # класс описывающий животных.
+class Animal:
     live = True
-    sound = None #звук (изначально отсутствует)
-    _DEGREE_OF_DANGER = 0 #степень опасности существа
+    sound = None
+    _DEGREE_OF_DANGER = 0
     def __init__(self,  speed):
-        self._cords = [0, 0, 0] #координаты в пространстве.
-        self.speed = speed #скорость передвижения существа (определяется при создании объекта)
+        self._cords = [0, 0, 0]
+        self.speed = speed
 
     def move(self, dx, dy, dz):
         self._cords[0] += dx * self.speed
@@ -25,27 +25,27 @@ class Animal: # класс описывающий животных.
         else:
             print("Be careful, i'm attacking you 0_0")
 
-class Bird(Animal): #Класс описывающий птиц. Наследуется от Animal.
-    beak = True #наличие клюва
+class Bird(Animal):
+    beak = True
 
 
     def lay_eggs(self):
-        print(f"Here are(is) {random.randint(1, 4)} eggs for you")#который выводит строку "Here are(is) <случайное число от 1 до 4> eggs for you"
+        print(f"Here are(is) {random.randint(1, 4)} eggs for you"  '#Число может быть другим (1-4)')
 
-class AquaticAnimal(Animal): #Класс описывающий плавающего животного. Наследуется от Animal.
+class AquaticAnimal(Animal):
     _DEGREE_OF_DANGER = 3
 
     def dive_in(self, dz):
         self._cords[2] = -(abs(dz) * self.speed)/2
 
-class PoisonousAnimal(Animal): #Класс описывающий ядовитых животных. Наследуется от Animal
+class PoisonousAnimal(Animal):
     _DEGREE_OF_DANGER = 8
 
 
-class Duckbill( AquaticAnimal, Bird, PoisonousAnimal): #класс описывающий утконоса. Наследуется от классов Bird, AquaticAnimal, PoisonousAnimal.
+class Duckbill( AquaticAnimal, Bird, PoisonousAnimal):
     def __init__(self, speed):
         super().__init__(speed)
-        self.sound = "Click-click-click"  # звук, который издаёт утконос
+        self.sound = "Click-click-click"
 
     def speak(self):
         print(self.sound)
@@ -54,18 +54,17 @@ class Duckbill( AquaticAnimal, Bird, PoisonousAnimal): #класс описыв�
 db = Duckbill(10)
 
 print(db.live)
-print(db.beak)
+print(db.beak,)
 
 db.speak()
 db.attack()
+
 
 db.move(1, 2, 3)
 db.get_cords()
 db.dive_in(6)
 db.get_cords()
-
 db.lay_eggs()
-db.dive_in(6)
-db.get_cords()
 
-db.lay_eggs()
+
+
