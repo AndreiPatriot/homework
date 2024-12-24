@@ -1,99 +1,94 @@
-import math  # Импортируем модуль math для математических операций, таких как вычисление площади и корня.
+import math
 
 
 class Figure:
-    sides_count = 0  # Количество сторон фигуры (по умолчанию 0 для базового класса)
+    sides_count = 0
 
     def __init__(self, color, *sides):
-        self.__sides = []  # Инициализируем инкапсулированный атрибут для сторон
-        self.__color = list(color)  # Сохраняем цвет в формате RGB как список
-        self.filled = False  # Устанавливаем, закрашена ли фигура
+        self.__sides = []
+        self.__color = list(color)
+        self.filled = False
 
-        if not self.__is_valid_sides(*sides):  # Проверяем корректность переданных сторон
-            self.__sides = [1] * self.sides_count  # Если некорректно, устанавливаем стороны по умолчанию
+        if not self.__is_valid_sides(*sides):
+            self.__sides = [1] * self.sides_count
         else:
-            self.__sides = list(sides)  # Иначе сохраняем переданные стороны
+            self.__sides = list(sides)
 
     def __is_valid_color(self, r, g, b):
         """Проверяет корректность переданных значений цвета."""
         return all(isinstance(x, int) and 0 <= x <= 255 for x in
-                   (r, g, b))  # Проверяем, что все значения - целые числа в диапазоне от 0 до 255
+                   (r, g, b))
 
     def set_color(self, r, g, b):
         """Устанавливает новый цвет, если он корректный."""
-        if self.__is_valid_color(r, g, b):  # Проверяем корректность цвета
-            self.__color = [r, g, b]  # Устанавливаем новый цвет
-        # Если цвет некорректный, ничего не меняем
+        if self.__is_valid_color(r, g, b):
+            self.__color = [r, g, b]
 
     def get_color(self):
         """Возвращает текущий цвет."""
-        return self.__color  # Возвращаем список RGB цветов
+        return self.__color
 
     def __is_valid_sides(self, *new_sides):
         """Проверяет корректность сторон."""
         return len(new_sides) == self.sides_count and all(isinstance(side, int) and side > 0 for side in new_sides)
-        # Проверяем количество сторон и что все стороны - положительные целые числа
 
     def get_sides(self):
         """Возвращает список сторон."""
-        return self.__sides  # Возвращаем список сторон фигуры
+        return self.__sides
 
     def set_sides(self, *new_sides):
         """Устанавливает новые стороны."""
-        if self.__is_valid_sides(*new_sides):  # Проверяем корректность новых сторон
-            self.__sides = list(new_sides)  # Устанавливаем новые стороны
+        if self.__is_valid_sides(*new_sides):
+            self.__sides = list(new_sides)
 
     def __len__(self):
         """Возвращает периметр фигуры."""
-        return sum(self.__sides)  # Возвращаем сумму всех сторон (периметр)
+        return sum(self.__sides)
 
 
 class Circle(Figure):
-    sides_count = 1  # У круга одна сторона (длина окружности)
+    sides_count = 1
 
     def __init__(self, color, circumference):
-        super().__init__(color)  # Вызываем конструктор родительского класса Figure
+        super().__init__(color)
 
-        if not isinstance(circumference, (int, float)) or circumference <= 0:  # Проверяем тип и значение окружности
-            raise ValueError("Circumference must be a positive number.")  # Выбрасываем ошибку при некорректном значении
+        if not isinstance(circumference, (int, float)) or circumference <= 0:
+            raise ValueError("Circumference must be a positive number.")
 
-        self.__radius = circumference / (2 * math.pi)  # Рассчитываем радиус по длине окружности
-        self.set_sides(circumference)  # Устанавливаем длину окружности как сторону
+        self.__radius = circumference / (2 * math.pi)
+        self.set_sides(circumference)
 
     def get_square(self):
         """Возвращает площадь круга."""
-        return math.pi * (self.__radius ** 2)  # Площадь круга: π * r^2
+        return math.pi * (self.__radius ** 2)
 
 
 class Triangle(Figure):
-    sides_count = 3  # У треугольника три стороны
+    sides_count = 3
 
     def __init__(self, color, a, b, c):
-        super().__init__(color, a, b, c)  # Вызываем конструктор родительского класса Figure с тремя сторонами
+        super().__init__(color, a, b, c)
 
     def get_square(self):
         """Возвращает площадь треугольника по формуле Герона."""
-        a, b, c = self.get_sides()  # Получаем стороны треугольника
+        a, b, c = self.get_sides()
 
         if not all(isinstance(side, (int, float)) and side > 0 for side in (a, b, c)):
-            raise ValueError("All sides must be positive numbers.")  # Проверяем корректность сторон
+            raise ValueError("All sides must be positive numbers.")
 
-        s = (a + b + c) / 2  # Полупериметр
-        return math.sqrt(s * (s - a) * (s - b) * (s - c))  # Площадь по формуле Герона
-
+        s = (a + b + c) / 2
+        return math.sqrt(s * (s - a) * (s - b) * (s - c))
 
 class Cube(Figure):
-    sides_count = 12  # У куба двенадцать рёбер
+    sides_count = 12
 
     def __init__(self, color, edge_length):
-        super().__init__(color)  # Вызываем конструктор родительского класса Figure
+        super().__init__(color)
 
         if not isinstance(edge_length, (int, float)) or edge_length <= 0:
             raise ValueError("Edge length must be a positive number.")
-            # Проверяем тип и значение длины ребра
 
         self.set_sides(*[edge_length] * self.sides_count)
-        # Устанавливаем все рёбра равными
 
     def get_volume(self):
         """Возвращает объём куба."""
@@ -101,11 +96,10 @@ class Cube(Figure):
         return edge_length ** 3  # Объём куба: a^3
 
 
-# Пример использования классов
 circle1 = Circle((200, 200, 100), 10)  # Создаем объект круга с цветом и длиной окружности
 cube1 = Cube((222, 35, 130), 6)  # Создаем объект куба с цветом и длиной ребра
 
-# Проверка на изменение цветов:
+
 circle1.set_color(55, 66, 77)  # Изменение цвета круга
 print(circle1.get_color())  # Выводим текущий цвет круга: [55,66,77]
 cube1.set_color(300, 70, 15)  # Попытка изменить цвет куба на некорректный
