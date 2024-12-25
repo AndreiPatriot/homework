@@ -15,36 +15,28 @@ class Figure:
             self.__sides = list(sides)
 
     def __is_valid_color(self, r, g, b):
-        """Проверяет корректность переданных значений цвета."""
         return all(isinstance(x, int) and 0 <= x <= 255 for x in
                    (r, g, b))
 
     def set_color(self, r, g, b):
-        """Устанавливает новый цвет, если он корректный."""
         if self.__is_valid_color(r, g, b):
             self.__color = [r, g, b]
 
     def get_color(self):
-        """Возвращает текущий цвет."""
         return self.__color
 
     def __is_valid_sides(self, *new_sides):
-        """Проверяет корректность сторон."""
         return len(new_sides) == self.sides_count and all(isinstance(side, int) and side > 0 for side in new_sides)
 
     def get_sides(self):
-        """Возвращает список сторон."""
         return self.__sides
 
     def set_sides(self, *new_sides):
-        """Устанавливает новые стороны."""
         if self.__is_valid_sides(*new_sides):
             self.__sides = list(new_sides)
 
     def __len__(self):
-        """Возвращает периметр фигуры."""
         return sum(self.__sides)
-
 
 class Circle(Figure):
     sides_count = 1
@@ -59,9 +51,7 @@ class Circle(Figure):
         self.set_sides(circumference)
 
     def get_square(self):
-        """Возвращает площадь круга."""
         return math.pi * (self.__radius ** 2)
-
 
 class Triangle(Figure):
     sides_count = 3
@@ -70,7 +60,6 @@ class Triangle(Figure):
         super().__init__(color, a, b, c)
 
     def get_square(self):
-        """Возвращает площадь треугольника по формуле Герона."""
         a, b, c = self.get_sides()
 
         if not all(isinstance(side, (int, float)) and side > 0 for side in (a, b, c)):
@@ -91,28 +80,29 @@ class Cube(Figure):
         self.set_sides(*[edge_length] * self.sides_count)
 
     def get_volume(self):
-        """Возвращает объём куба."""
         edge_length = self.get_sides()[0]  # Получаем длину ребра (все рёбра одинаковые)
         return edge_length ** 3  # Объём куба: a^3
 
 
-circle1 = Circle((200, 200, 100), 10)  # Создаем объект круга с цветом и длиной окружности
-cube1 = Cube((222, 35, 130), 6)  # Создаем объект куба с цветом и длиной ребра
+circle1 = Circle((200, 200, 100), 10) # (Цвет, стороны)
 
+cube1 = Cube((222, 35, 130), 6)
 
-circle1.set_color(55, 66, 77)  # Изменение цвета круга
-print(circle1.get_color())  # Выводим текущий цвет круга: [55,66,77]
-cube1.set_color(300, 70, 15)  # Попытка изменить цвет куба на некорректный
-print(cube1.get_color())  # Выводим текущий цвет куба: [222,35,130]
+# Проверка на изменение цветов:
+
+circle1.set_color(55, 66, 77) # Изменится
+print(circle1.get_color())
+cube1.set_color(300, 70, 15) # Не изменится
+print(cube1.get_color())
 
 # Проверка на изменение сторон:
-cube1.set_sides(5, 3, 12)  # Попытка изменить стороны куба на некорректные
-print(cube1.get_sides())  # Выводим текущие стороны куба: [6]*12
-circle1.set_sides(15)  # Изменение стороны круга на новую длину окружности
-print(circle1.get_sides())  # Выводим текущие стороны круга: [15]
+cube1.set_sides(5, 3, 12, 4, 5) # Не изменится
+print(cube1.get_sides())
+circle1.set_sides(15) # Изменится
+print(circle1.get_sides())
 
 # Проверка периметра (круга), это и есть длина:
-print(len(circle1))  # Выводим длину окружности: ~15.71
+print(len(circle1))
 
 # Проверка объёма (куба):
-print(cube1.get_volume())  # Выводим объём куба: ~216
+print(cube1.get_volume())
