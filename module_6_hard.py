@@ -81,7 +81,7 @@ class Cube(Figure):
 
     def get_volume(self):
         edge_length = self.get_sides()[0]
-        return edge_length ** 3  
+        return edge_length ** 3
 
 
 circle1 = Circle((200, 200, 100), 10) # (Цвет, стороны)
