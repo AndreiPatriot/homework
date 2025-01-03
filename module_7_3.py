@@ -28,7 +28,7 @@ class WordsFinder:
                 if word.lower() in w:
                     index = words.index(w)
                     list_.append(self.file_name)
-                    list_.append(index+1)
+                    list_.append(index + 1)
                     break
         return list_
 
