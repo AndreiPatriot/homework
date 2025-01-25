@@ -73,18 +73,13 @@ class Cafe:
 
 
 def main():
-    # Создание столов
     tables = [Table(number) for number in range(1, 6)]
-    # Имена гостей
-    guests_names = ['Мария', 'Олег', 'Вахтанг', 'Серёга', 'Даша', 'Арман', 'Виктория', 'Никита', 'Павел', 'Илья',
-                    'Александр']
-    # Создание гостей
+    guests_names = ['Maria', 'Oleg', 'Vakhtang', 'Sergey', 'Darya', 'Arman',
+                    'Vitoria', 'Nikita', 'Galina', 'Pavel', 'Ilya', 'Alexandra']
+
     guests = [Guest(name) for name in guests_names]
-    # Заполнение кафе столами
     cafe = Cafe(*tables)
-    # Приём гостей
     cafe.guest_arrival(*guests)
-    # Обслуживание гостей
     cafe.discuss_guests()
 
 
